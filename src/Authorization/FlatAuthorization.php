@@ -12,17 +12,29 @@ class FlatAuthorization implements AuthorizeInterface
 	protected $error;
 
 	/**
-	 * @var Model
+	 * The group model to use. Usually the class noted
+	 * below (or an extension thereof) but can be any
+	 * compatible CodeIgniter Model.
+	 *
+	 * @var Myth\Auth\Authorization\GroupModel
 	 */
 	protected $groupModel;
 
 	/**
-	 * @var Model
+	 * The group model to use. Usually the class noted
+	 * below (or an extension thereof) but can be any
+	 * compatible CodeIgniter Model.
+	 *
+	 * @var Myth\Auth\Authorization\PermissionModel
 	 */
 	protected $permissionModel;
 
 	/**
-	 * @var Model
+	 * The group model to use. Usually the class noted
+	 * below (or an extension thereof) but can be any
+	 * compatible CodeIgniter Model.
+	 *
+	 * @var Myth\Auth\Models\UserModel
 	 */
 	protected $userModel = null;
 
@@ -588,7 +600,7 @@ class FlatAuthorization implements AuthorizeInterface
 			return $this->permissionModel->find((int)$permission);
 		}
 
-		return $this->permissionModel->where('LOWER(name)', strtolower($permission))->first();
+		return $this->permissionModel->like('name', $permission, 'none', null, true)->first();
 	}
 
 	/**
